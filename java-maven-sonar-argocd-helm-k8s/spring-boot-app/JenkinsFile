@@ -12,6 +12,15 @@ pipeline {
         //git branch: 'main', url: 'https://github.com/iam-veeramalla/Jenkins-Zero-To-Hero.git'
       }
     }
+     stage('Verify Agent') {
+       steps {
+         sh '''
+            java -version
+            mvn -version
+            docker --version
+           '''
+    }
+}
     stage('Build and Test') {
       steps {
         // build the project and create a JAR file
