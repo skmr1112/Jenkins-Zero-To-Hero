@@ -61,6 +61,17 @@ pipeline {
         steps {
             withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
                 sh '''
+                    echo "Current directory:"
+                    pwd
+
+                    echo "Workspace contents:"
+                    ls -la
+
+                    echo "Git status:"
+                    git status
+
+                    echo "Searching for .git directory:"
+                    find . -name ".git"
                     git config user.email "abhishek.xyz@gmail.com"
                     git config user.name "Abhishek Veeramalla"
                     BUILD_NUMBER=${BUILD_NUMBER}
