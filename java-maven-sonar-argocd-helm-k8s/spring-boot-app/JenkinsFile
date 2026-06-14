@@ -72,10 +72,10 @@ pipeline {
 
                     echo "Searching for .git directory:"
                     find . -name ".git"
-                    git config --global --add safe.directory /var/lib/jenkins/workspace/CICD
                     
-                    git config --global user.email "abhishek.xyz@gmail.com"
-                    git config --global user.name "Abhishek Veeramalla"
+                    
+                    git config user.email "abhishek.xyz@gmail.com"
+                    git config user.name "Abhishek Veeramalla"
                     BUILD_NUMBER=${BUILD_NUMBER}
                     sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
                     git add java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
