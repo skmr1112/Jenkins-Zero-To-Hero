@@ -12,11 +12,7 @@ pipeline {
         //git branch: 'main', url: 'https://github.com/iam-veeramalla/Jenkins-Zero-To-Hero.git'
       }
     }
-     stage('Clean Workspace') {
-       steps {
-         cleanWs()
-      }
-} 
+
      stage('Verify Agent') {
        steps {
          sh '''
@@ -32,6 +28,11 @@ pipeline {
         sh 'cd java-maven-sonar-argocd-helm-k8s/spring-boot-app && mvn clean package'
       }
     }
+     stage('Clean Workspace') {
+       steps {
+         cleanWs()
+      }
+} 
     stage('Static Code Analysis') {
       environment {
         SONAR_URL = "http://23.22.205.17:9000"
