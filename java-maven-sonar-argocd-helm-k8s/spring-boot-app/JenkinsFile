@@ -8,10 +8,15 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        sh 'echo passed'
+        checkout scm
         //git branch: 'main', url: 'https://github.com/iam-veeramalla/Jenkins-Zero-To-Hero.git'
       }
     }
+     stage('Clean Workspace') {
+       steps {
+         cleanWs()
+      }
+} 
      stage('Verify Agent') {
        steps {
          sh '''
@@ -78,7 +83,8 @@ pipeline {
                 git config user.name "Abhishek Veeramalla"
 
                 BUILD_NUMBER=${BUILD_NUMBER}
-                sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" deployment.yml
+                sed -i "s|image: .*|image: anmeet1511/ultimate-cicd:${BUILD_NUMBER}|g" \
+                java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
  
 
                 git add java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
