@@ -39,7 +39,7 @@ pipeline {
     }
     stage('Build and Push Docker Image') {
       environment {
-        DOCKER_IMAGE = "anmeet1511/ultimate-cicd:${BUILD_NUMBER}"
+        DOCKER_IMAGE = "anmeet1511/ultimate-cicd:replaceImageTag"
         // DOCKERFILE_LOCATION = "java-maven-sonar-argocd-helm-k8s/spring-boot-app/Dockerfile"
         REGISTRY_CREDENTIALS = credentials('docker-cred')
       }
@@ -78,13 +78,12 @@ pipeline {
                 git config user.name "Abhishek Veeramalla"
 
                 BUILD_NUMBER=${BUILD_NUMBER}
-
-                sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" \
-                java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
+                sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" deployment.yml
+ 
 
                 git add java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
 
-                git commit -m "Update deployment image to version ${BUILD_NUMBER}" || true
+                git commit -m "Update deployment image to version ${BUILD_NUMBER}"
 
                 git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME}.git HEAD:main
             '''
